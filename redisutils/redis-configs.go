@@ -1,8 +1,8 @@
 package redisutils
 
 type RedisConfig struct {
-  Host string
-  Port int
-  Db int
-  Auth string
+	Host string
+	Port string
+	Db   int
+	Auth string
 }

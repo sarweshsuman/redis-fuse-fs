@@ -2,13 +2,49 @@ package main
 
 import (
 	"fmt"
+	"path"
 
+	"github.com/garyburd/redigo/redis"
 	"github.com/hanwen/go-fuse/fuse"
 	"github.com/hanwen/go-fuse/fuse/nodefs"
 )
 
 func (fs *RedisFuseConfig) GetAttr(name string, ctx *fuse.Context) (*fuse.Attr, fuse.Status) {
 	fmt.Printf("Request to GetAttr of %v\n", name)
+
+	if name == "" {
+		return &fuse.Attr{
+			Mode: fuse.S_IFDIR | 0755,
+		}, fuse.OK
+	}
+
+	// ignore hidden files
+	if string(name[0]) == "." {
+		return nil, fuse.ENOENT
+	}
+
+	key := path.Base(name)
+
+	conn := fs.RedisConnPool.Get()
+	defer conn.Close()
+
+	content, err1 := redis.String(conn.Do("GET", key))
+	list, err2 := redis.Strings(conn.Do("KEYS", key+"/*"))
+
+	switch {
+	case err2 == nil && len(list) > 0:
+		return &fuse.Attr{
+			Mode: fuse.S_IFDIR | 0755,
+		}, fuse.OK
+		break
+	case err1 == nil:
+		return &fuse.Attr{
+			Mode: fuse.S_IFREG | 0644,
+			Size: uint64(len(content)),
+		}, fuse.OK
+		break
+	}
+
 	return nil, fuse.ENOENT
 }
 
