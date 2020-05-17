@@ -8,6 +8,7 @@ import (
 )
 
 func (fs *RedisFuseConfig) GetAttr(name string, ctx *fuse.Context) (*fuse.Attr, fuse.Status) {
+	fmt.Print("Request to GetAttr of {}\n", name)
 	return nil, fuse.ENOENT
 }
 
@@ -17,26 +18,32 @@ func (fs *RedisFuseConfig) OpenDir(name string, ctx *fuse.Context) ([]fuse.DirEn
 }
 
 func (fs *RedisFuseConfig) Open(name string, flags uint32, ctx *fuse.Context) (nodefs.File, fuse.Status) {
+	fmt.Print("Request to Open {}\n", name)
 	return nil, fuse.ENOENT
 }
 
 func (fs *RedisFuseConfig) Create(name string, flags uint32, mode uint32, ctx *fuse.Context) (nodefs.File, fuse.Status) {
+	fmt.Print("Request to Create {}\n", name)
 	return nil, fuse.ENOENT
 }
 
 func (fs *RedisFuseConfig) Rename(oldName string, newName string, ctx *fuse.Context) fuse.Status {
+	fmt.Print("Request to Rename {}\n", oldName)
 	return fuse.ENOENT
 }
 
 func (fs *RedisFuseConfig) Unlink(name string, ctx *fuse.Context) fuse.Status {
+	fmt.Print("Request to Unlink {}\n", name)
 	return fuse.ENOENT
 }
 
 func (fs *RedisFuseConfig) Rmdir(name string, ctx *fuse.Context) fuse.Status {
+	fmt.Print("Request to Rmdir {}\n", name)
 	return fuse.ENOENT
 }
 
 func (fs *RedisFuseConfig) Mkdir(name string, mode uint32, ctx *fuse.Context) fuse.Status {
+	fmt.Print("Request to Mkdir {}\n", name)
 	return fuse.OK
 }
 
