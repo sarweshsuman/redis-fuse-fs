@@ -7,12 +7,15 @@ import (
 )
 
 func (config *RedisConfig) CreateRedisConn() (redis.Conn, error) {
+	log.Println("Debug:", "Connecting to redis")
 
 	address := config.Host + ":" + config.Port
 	conn, err := redis.Dial("tcp", address)
 	if err != nil {
 		return nil, err
 	}
+
+	log.Println("Debug:", "Connected to redis")
 
 	if len(config.Auth) > 0 {
 		log.Println("Info:", "Auth")
