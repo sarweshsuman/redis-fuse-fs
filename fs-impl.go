@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/hanwen/go-fuse/fuse"
 	"github.com/hanwen/go-fuse/fuse/nodefs"
 )
@@ -10,6 +12,7 @@ func (fs *RedisFuseConfig) GetAttr(name string, ctx *fuse.Context) (*fuse.Attr, 
 }
 
 func (fs *RedisFuseConfig) OpenDir(name string, ctx *fuse.Context) ([]fuse.DirEntry, fuse.Status) {
+	fmt.Print("Request to Open Dir {}\n", name)
 	return []fuse.DirEntry{}, fuse.OK
 }
 

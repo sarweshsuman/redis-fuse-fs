@@ -6,7 +6,7 @@ import (
 	"github.com/hanwen/go-fuse/fuse"
 	"github.com/hanwen/go-fuse/fuse/nodefs"
 	"github.com/hanwen/go-fuse/fuse/pathfs"
-	"github.com/sarweshsuman/redis-fuse/redisutils"
+	"github.com/sarweshsuman/redis-fuse-fs/redisutils"
 )
 
 type RedisFuseConfig struct {
